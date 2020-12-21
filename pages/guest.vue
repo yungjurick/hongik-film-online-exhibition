@@ -150,7 +150,15 @@ export default {
   },
   methods: {
     onSubmitPost () {
-      console.log('Submit!')
+      const { authorName, postPassword, postContent, selectedNewPostArtistId } = this
+      this.$store.dispatch('putNewGuestPost', {
+        authorName,
+        postContent,
+        postPassword,
+        artistId: selectedNewPostArtistId,
+        artistName: this.selectedArtistName(selectedNewPostArtistId, false),
+        createdTime: Date.now()
+      })
     },
     toggleAuthorSelectOptions () {
       this.isAuthorSelectOptionsOpened = !this.isAuthorSelectOptionsOpened

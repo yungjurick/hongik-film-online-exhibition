@@ -71,7 +71,9 @@ export const mutations = {
   },
   setGuestPostList (state, payload) {
     console.log(payload)
-    state.guestPostList = payload
+    state.guestPostList = payload.sort((a, b) => {
+      return Number(b.createdTime) - Number(a.createdTime)
+    })
   },
   setModalConfirmOpen (state, payload) {
     state.isModalConfirmOpen = payload
@@ -120,9 +122,11 @@ export const actions = {
         })
     })
 
+    console.log('Local Storage Post Count: ', localPostCount)
+    console.log('Firebase Storage Post Count: ', storagePostCount)
+
     if (localPostCount !== storagePostCount) {
       console.log('Grab Post Data from Firebase')
-      localStorage.setItem('guest-post-count', storagePostCount)
       const storagePost = await new Promise((resolve) => {
         this.$fire.firestore.collection('guestPost')
           .get()
@@ -138,6 +142,10 @@ export const actions = {
             resolve(list)
           })
       })
+      if (storagePostCount !== storagePost.length) {
+        context.dispatch('putGuestPostCount', storagePost.length)
+      }
+      localStorage.setItem('guest-post-count', storagePost.length)
       localStorage.setItem('guest-post', JSON.stringify(storagePost))
       context.commit('setGuestPostList', storagePost)
     } else {
@@ -145,21 +153,30 @@ export const actions = {
       context.commit('setGuestPostList', JSON.parse(localStorage.getItem('guest-post')))
     }
   },
-  putNewGuestPost (context, payload) {
+  putGuestPostCount (context, payload) {
+    const guestCountRef = this.$fire.firestore.collection('guestCount').doc('count')
+    guestCountRef.update('num', payload)
+  },
+  async putNewGuestPost (context, payload) {
+    console.log('New Guest Post Payload: ', payload)
     const batch = this.$fire.firestore.batch()
     const guestPostRef = this.$fire.firestore.collection('guestPost').doc()
     const guestCountRef = this.$fire.firestore.collection('guestCount').doc('count')
-    const increment = this.$fire.firestore.FieldValue.increment(1)
+    const guestCount = await new Promise((resolve) => {
+      guestCountRef.get().then((doc) => {
+        resolve(doc.data().num)
+      })
+    })
 
     batch.set(guestPostRef, payload)
-    batch.update(guestCountRef, { num: increment })
+    batch.update(guestCountRef, { num: Number(guestCount + 1) })
 
     batch.commit()
       .then(() => {
         const localPostCount = Number(localStorage.getItem('guest-post-count'))
         const localPostList = JSON.parse(localStorage.getItem('guest-post'))
-        localStorage.setItem(localPostCount + 1)
-        localStorage.setItem(JSON.stringify([
+        localStorage.setItem('guest-post-count', (localPostCount + 1))
+        localStorage.setItem('guest-post', JSON.stringify([
           payload,
           ...localPostList
         ]))
@@ -167,21 +184,25 @@ export const actions = {
       })
       .catch(err => console.error(err))
   },
-  deleteGuestPost (context, firebasePostId) {
+  async deleteGuestPost (context, firebasePostId) {
     const batch = this.$fire.firestore.batch()
     const guestPostRef = this.$fire.firestore.collection('guestPost').doc(firebasePostId)
     const guestCountRef = this.$fire.firestore.collection('guestCount').doc('count')
-    const decrement = this.$fire.firestore.FieldValue.increment(-11)
+    const guestCount = await new Promise((resolve) => {
+      guestCountRef.get().then((doc) => {
+        resolve(doc.data().num)
+      })
+    })
 
     batch.delete(guestPostRef)
-    batch.update(guestCountRef, { num: decrement })
+    batch.update(guestCountRef, { num: Number(guestCount - 1) })
 
     batch.commit()
       .then(() => {
         const localPostCount = Number(localStorage.getItem('guest-post-count'))
         const localPostList = JSON.parse(localStorage.getItem('guest-post'))
-        localStorage.setItem(localPostCount - 1)
-        localStorage.setItem(JSON.stringify([
+        localStorage.setItem('guest-post-count', (localPostCount - 1))
+        localStorage.setItem('guest-post', JSON.stringify([
           ...localPostList.filter(post => post.firebasePostId !== firebasePostId)
         ]))
         context.commit('deleteGuestPost', firebasePostId)

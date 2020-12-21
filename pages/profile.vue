@@ -31,9 +31,10 @@
               @click="copyArtistEmail(profile.email)"
             >
             <img
-              v-if="profile.instgramLink !== 'none'"
+              v-if="profile.instagramLink !== 'none'"
               src="@/assets/icon/instagram-icon.svg"
               alt="instagram-icon"
+              @click="openInstagram(profile.instagramLink)"
             >
           </div>
         </div>
@@ -74,6 +75,9 @@ export default {
       document.execCommand('copy')
       document.body.removeChild(dummy)
       this.$store.commit('setModalConfirmOpen', true)
+    },
+    openInstagram (link) {
+      window.open(link)
     }
   }
 }
