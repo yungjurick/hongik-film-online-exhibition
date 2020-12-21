@@ -80,7 +80,7 @@ export default {
           color: #ffda88;
         }
         & + & {
-          margin-left: 36px;
+          margin-left: 70px;
         }
       }
     }
