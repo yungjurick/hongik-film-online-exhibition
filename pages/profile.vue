@@ -10,7 +10,14 @@
         :key="profile.id"
         class="profile__container__artist"
       >
-        <img :src="profile.imgUrl" alt="profile-image" class="profile__container__artist__image">
+        <v-img
+          :src="profile.imgUrl"
+          lazy-src="https://raw.githubusercontent.com/yungjurick/hongik-film-online-exhibition-cdn/master/profile/empty.png"
+          alt="profile-image"
+          max-width="216px"
+          max-height="288px"
+          class="profile__container__artist__image"
+        />
         <div class="profile__container__artist__title">
           <span>{{ profile.name }}</span>
           <div
