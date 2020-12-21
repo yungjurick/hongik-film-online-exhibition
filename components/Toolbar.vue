@@ -21,10 +21,6 @@
         GUEST
       </NuxtLink>
     </div>
-    <!-- <nav class="nav">
-      <NuxtLink class="nav__link" to="/">Home</NuxtLink>
-      <NuxtLink class="nav__link" to="/about/">About</NuxtLink>
-    </nav> -->
   </header>
 </template>
 

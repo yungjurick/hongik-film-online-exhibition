@@ -55,10 +55,7 @@ export default {
   },
   computed: {
     artistProfile () {
-      const profile = this.$store.getters.getArtistProfile
-      return profile.sort((a, b) => {
-        return Number(a.id) - Number(b.id) || a.name.localeCompare(b.name)
-      })
+      return this.$store.getters.getArtistProfile
     }
   },
   methods: {
@@ -78,6 +75,7 @@ export default {
 <style lang="scss">
 .profile {
   margin-top: 80px;
+  margin-bottom: 178px;
   &__title {
     font-family: 'Noto Serif KR', serif;
     font-size: 40px;

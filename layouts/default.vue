@@ -1,5 +1,5 @@
 <template>
-  <div class="default-layout">
+  <div class="default-layout" :class="{ 'apply-background': useImageBackground }">
     <div class="default-layout__container">
       <Toolbar />
       <Nuxt />
@@ -16,6 +16,11 @@ export default {
   components: {
     Toolbar,
     Footer
+  },
+  computed: {
+    useImageBackground () {
+      return this.$route.name !== 'profile'
+    }
   },
   created () {
     const artistDataPayload = [
@@ -78,16 +83,22 @@ body {
   margin: 0;
   padding: 0;
   line-height: 1.5;
-  background-color: #1c1919;
 }
 .default-layout {
   width: 100%;
   min-height: 100vh;
+  background: rgba(28, 25, 25);
   &__container {
     max-width: 1200px;
     margin: 0 auto;
   }
 }
+.apply-background {
+  background: linear-gradient(0deg,rgba(28, 25, 25, 0.8), rgba(28, 25, 25, 0.8)), url('../assets/img/background.jpg');
+  background-size: 100%;
+  background-repeat: repeat-y;
+}
+
 .nav__link {
   margin-left: 20px;
 }
