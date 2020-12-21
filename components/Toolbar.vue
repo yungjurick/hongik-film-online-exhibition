@@ -3,15 +3,23 @@
     <div class="toolbar__logo" @click="navigateToHome()">
       <img src="@/assets/img/hgff_logo.png" alt="logo">
       <p>
-        2020 홍익대학교 영상애니메이션전공<br>
-        졸업작품 상영회
+        2020 HONGIK UNIV.<br>
+        GRADUATION FILM FESTIVAL
       </p>
     </div>
     <div class="toolbar__nav">
-      <NuxtLink class="toolbar__nav__link" to="/flashback/" active-class="toolbar__nav__link--active">FLASHBACK</NuxtLink>
-      <NuxtLink class="toolbar__nav__link" to="/2020/" active-class="toolbar__nav__link--active">2020</NuxtLink>
-      <NuxtLink class="toolbar__nav__link" to="/profile/" active-class="toolbar__nav__link--active">PROFILE</NuxtLink>
-      <NuxtLink class="toolbar__nav__link" to="/guest/" active-class="toolbar__nav__link--active">GUEST</NuxtLink>
+      <NuxtLink class="toolbar__nav__link" to="/flashback/" active-class="toolbar__nav__link--active">
+        FLASHBACK
+      </NuxtLink>
+      <NuxtLink class="toolbar__nav__link" to="/2020/" active-class="toolbar__nav__link--active">
+        2020
+      </NuxtLink>
+      <NuxtLink class="toolbar__nav__link" to="/profile/" active-class="toolbar__nav__link--active">
+        PROFILE
+      </NuxtLink>
+      <NuxtLink class="toolbar__nav__link" to="/guest/" active-class="toolbar__nav__link--active">
+        GUEST
+      </NuxtLink>
     </div>
     <!-- <nav class="nav">
       <NuxtLink class="nav__link" to="/">Home</NuxtLink>
@@ -23,9 +31,9 @@
 <script>
 export default {
   methods: {
-    navigateToHome() {
+    navigateToHome () {
       if (this.$route.path !== '/') {
-        this.$router.push('/');
+        this.$router.push('/')
       } else {
         this.$router.go()
       }
@@ -36,6 +44,7 @@ export default {
 
 <style lang="scss">
   .toolbar {
+    font-family: 'Noto Sans KR', sans-serif;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -48,11 +57,11 @@ export default {
         height: 46px;
         width: 52px;
         object-fit: contain;
-        margin-right: 8px;
+        margin-right: 12px;
       }
       & > p {
         font-size: 17px;
-        font-weight: 600;
+        font-weight: 500;
         line-height: 1.35;
         letter-spacing: -0.5px;
         color: #d0d0d0;
@@ -60,10 +69,10 @@ export default {
     }
     &__nav {
       &__link {
-        font-size: 16px;
-        font-weight: 900;
+        font-size: 18px;
+        font-weight: 500;
         line-height: 1;
-        letter-spacing: normal;
+        letter-spacing: 0.5px;
         text-align: center;
         color: #ffffff;
         text-decoration: none;

@@ -14,7 +14,15 @@ export default {
       { hid: 'description', name: 'description', content: '' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500;600;900&display=swap'
+      },
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;500;600;900&display=swap'
+      }
     ]
   },
 
@@ -37,9 +45,32 @@ export default {
 
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
+    [
+      '@nuxtjs/firebase',
+      {
+        config: {
+          apiKey: 'AIzaSyB3Dr_2Wppo7d2ifRV7WqYcgn1t8dmd9gc',
+          authDomain: 'hongik-film-graduation.firebaseapp.com',
+          databaseURL: 'https://hongik-film-graduation-default-rtdb.firebaseio.com',
+          projectId: 'hongik-film-graduation',
+          storageBucket: 'hongik-film-graduation.appspot.com',
+          messagingSenderId: '819974274190',
+          appId: '1:819974274190:web:04386e13af9c935e5b1ddf',
+          measurementId: 'G-Y37XB6YPQB'
+        },
+        services: {
+          firestore: true,
+          storage: true
+        }
+      }
+    ]
   ],
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
+  },
+
+  generate: {
+    fallback: true
   }
 }
