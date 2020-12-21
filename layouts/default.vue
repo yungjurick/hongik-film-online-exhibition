@@ -3,15 +3,19 @@
     <div class="default-layout__container">
       <Toolbar />
       <Nuxt />
+      <Footer />
     </div>
   </div>
 </template>
 
 <script>
-import Toolbar from '~/components/Toolbar.vue'
+import Toolbar from '@/components/Toolbar.vue'
+import Footer from '@/components/Footer.vue'
+
 export default {
   components: {
-    Toolbar
+    Toolbar,
+    Footer
   },
   created () {
     const artistDataPayload = [
@@ -48,12 +52,27 @@ html {
   box-sizing: border-box;
 }
 
+*::-webkit-scrollbar {
+  display: none;
+}
+
+button {
+  cursor: pointer;
+  &:focus {
+  outline: none;
+  box-shadow: none;
+  }
+}
+
 *,
 *::before,
 *::after {
   box-sizing: border-box;
   margin: 0;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
+
 body {
   font-family: 'Noto Serif KR', serif;
   margin: 0;
@@ -63,11 +82,10 @@ body {
 }
 .default-layout {
   width: 100%;
+  min-height: 100vh;
   &__container {
     max-width: 1200px;
     margin: 0 auto;
-    padding-left: 20px;
-    padding-right: 20px;
   }
 }
 .nav__link {

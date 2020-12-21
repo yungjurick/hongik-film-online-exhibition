@@ -1,12 +1,19 @@
+import UTILS from 'static/utils.js'
+
 export const state = () => ({
   artistList: [],
   artistWorkList: [],
-  worksList: []
+  worksList: [],
+  // Modal Display State
+  isModalConfirmOpen: false
 })
 
 export const getters = {
   getArtistProfile ({ artistList, artistWorkList, worksList }) {
     return artistList.map((artist) => {
+      const artistImageEndpoint = UTILS.getArtistImageEndpoint(artist.id)
+      const imgUrl = UTILS.getCdnUrl('profile', artistImageEndpoint)
+
       const worksWithRoles = artistWorkList
         .filter(artistWork => artistWork.artistId === artist.id)
         .map((filteredWork) => {
@@ -17,9 +24,9 @@ export const getters = {
             genre: work.genre
           }
         })
-      console.log({ ...artist, works: [...worksWithRoles] })
       return {
         ...artist,
+        imgUrl,
         works: [...worksWithRoles]
       }
     })
@@ -35,6 +42,9 @@ export const mutations = {
   },
   setWorksList (state, payload) {
     state.worksList = payload
+  },
+  setModalConfirmOpen (state, payload) {
+    state.isModalConfirmOpen = payload
   }
 }
 
