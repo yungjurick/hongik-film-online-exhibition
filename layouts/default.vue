@@ -1,5 +1,11 @@
 <template>
-  <div class="default-layout" :class="{ 'apply-background': useImageBackground }">
+  <div
+    class="default-layout"
+    :class="{
+      'apply-background': useImageBackground,
+      'modal-open': isModalOpen
+    }"
+  >
     <div class="default-layout__container">
       <Toolbar />
       <Nuxt />
@@ -20,6 +26,9 @@ export default {
   computed: {
     useImageBackground () {
       return this.$route.name !== 'profile'
+    },
+    isModalOpen () {
+      return this.$store.state.isModalConfirmOpen
     }
   },
   created () {

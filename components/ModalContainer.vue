@@ -1,7 +1,9 @@
 <template>
-  <div class="modal-container">
-    <slot />
-  </div>
+  <transition name="fade">
+    <div class="modal-container">
+      <slot />
+    </div>
+  </transition>
 </template>
 
 <style lang="scss">
@@ -15,5 +17,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    overscroll-behavior: contain;
+  }
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: all 0.3s ease;
+  }
+
+  .fade-enter,
+  .fade-leave-to {
+    opacity: 0;
   }
 </style>

@@ -5,8 +5,11 @@ export const state = () => ({
   artistWorkList: [],
   worksList: [],
   guestPostList: [],
+  selectedPostId: '',
+  deleteModalErrorMsg: '',
   // Modal Display State
-  isModalConfirmOpen: false
+  isModalConfirmOpen: false,
+  isGuestDeleteModalOpen: false
 })
 
 export const getters = {
@@ -52,7 +55,7 @@ export const getters = {
       return guestPostList
     } else {
       return guestPostList
-        .filter(post => (post.artistId === id || post.artistId === 100))
+        .filter(post => (post.artistId === id))
     }
   }
 }
@@ -78,15 +81,23 @@ export const mutations = {
   setModalConfirmOpen (state, payload) {
     state.isModalConfirmOpen = payload
   },
-  addNewGuestPost (state, payload) {
-    state.guestPostList = [
-      payload,
-      ...state.guestPostList
-    ]
+  setGuestDeleteModalOpen (state, payload) {
+    state.isGuestDeleteModalOpen = payload
   },
-  deleteGuestPost (state, firebasePostId) {
-    state.guestPostList = state.guestPostList
-      .filter(post => post.firebasePostId !== firebasePostId)
+  setSelectedPostId (state, payload) {
+    state.selectedPostId = payload
+  },
+  setDeleteModalErrorMsg (state, payload) {
+    state.deleteModalErrorMsg = payload
+  },
+  addNewGuestPost (state, payload) {
+    state.guestPostList.splice(0, 0, payload)
+  },
+  removeGuestPost (state, firebasePostId) {
+    const targetPost = state.guestPostList.find(post => post.postId === firebasePostId)
+    const targetPostIndex = state.guestPostList.indexOf(targetPost)
+
+    state.guestPostList.splice(targetPostIndex, 1)
   }
 }
 
@@ -133,11 +144,7 @@ export const actions = {
           .then((snapshot) => {
             const list = []
             snapshot.forEach((doc) => {
-              const postData = doc.data()
-              list.push({
-                firebasePostId: doc.id,
-                ...postData
-              })
+              list.push(doc.data())
             })
             resolve(list)
           })
@@ -162,13 +169,18 @@ export const actions = {
     const batch = this.$fire.firestore.batch()
     const guestPostRef = this.$fire.firestore.collection('guestPost').doc()
     const guestCountRef = this.$fire.firestore.collection('guestCount').doc('count')
+    const postId = await new Promise((resolve) => {
+      guestPostRef.get().then((doc) => {
+        resolve(doc.id)
+      })
+    })
     const guestCount = await new Promise((resolve) => {
       guestCountRef.get().then((doc) => {
         resolve(doc.data().num)
       })
     })
 
-    batch.set(guestPostRef, payload)
+    batch.set(guestPostRef, { ...payload, postId })
     batch.update(guestCountRef, { num: Number(guestCount + 1) })
 
     batch.commit()
@@ -177,16 +189,42 @@ export const actions = {
         const localPostList = JSON.parse(localStorage.getItem('guest-post'))
         localStorage.setItem('guest-post-count', (localPostCount + 1))
         localStorage.setItem('guest-post', JSON.stringify([
-          payload,
+          { ...payload, postId },
           ...localPostList
         ]))
-        context.commit('addNewGuestPost', payload)
+        context.commit('addNewGuestPost', { ...payload, postId })
       })
       .catch(err => console.error(err))
   },
-  async deleteGuestPost (context, firebasePostId) {
+  async checkPostPassword (context, { inputPassword, postId }) {
+    context.commit('setDeleteModalErrorMsg', '')
+
+    const guestPostRef = this.$fire.firestore.collection('guestPost').doc(postId)
+    try {
+      const postPassword = await new Promise((resolve, reject) => {
+        guestPostRef
+          .get()
+          .then((doc) => {
+            resolve(doc.data().postPassword)
+          })
+          .catch((err) => {
+            console.warn(err)
+            reject(err)
+          })
+      })
+      console.log(postPassword, inputPassword)
+      if (inputPassword === postPassword) {
+        context.dispatch('deleteGuestPost', postId)
+      } else {
+        context.commit('setDeleteModalErrorMsg', '비밀번호가 일치하지 않습니다.')
+      }
+    } catch (err) {
+      context.commit('setDeleteModalErrorMsg', '서버 오류가 발생했습니다. 관리자에게 문의 부탁드립니다.')
+    }
+  },
+  async deleteGuestPost (context, postId) {
     const batch = this.$fire.firestore.batch()
-    const guestPostRef = this.$fire.firestore.collection('guestPost').doc(firebasePostId)
+    const guestPostRef = this.$fire.firestore.collection('guestPost').doc(postId)
     const guestCountRef = this.$fire.firestore.collection('guestCount').doc('count')
     const guestCount = await new Promise((resolve) => {
       guestCountRef.get().then((doc) => {
@@ -203,10 +241,14 @@ export const actions = {
         const localPostList = JSON.parse(localStorage.getItem('guest-post'))
         localStorage.setItem('guest-post-count', (localPostCount - 1))
         localStorage.setItem('guest-post', JSON.stringify([
-          ...localPostList.filter(post => post.firebasePostId !== firebasePostId)
+          ...localPostList.filter(post => post.postId !== postId)
         ]))
-        context.commit('deleteGuestPost', firebasePostId)
+        context.commit('removeGuestPost', postId)
+        context.commit('setGuestDeleteModalOpen', false)
       })
-      .catch(err => console.error(err))
+      .catch((err) => {
+        console.error(err)
+        context.commit('setDeleteModalErrorMsg', '방명록을 지우는데 오류가 발생했습니다. 관리자에게 문의 부탁드립니다.')
+      })
   }
 }

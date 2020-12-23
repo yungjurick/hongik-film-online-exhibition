@@ -1,22 +1,20 @@
 <template>
-  <transition name="fade">
-    <ModalContainer v-show="isModalConfirmOpen">
-      <div class="modal-confirm">
-        <h1 class="modal-confirm__title">
-          {{ title }}
-        </h1>
-        <p class="modal-confirm__subtitle">
-          {{ subtitle }}
-        </p>
-        <button
-          class="modal-confirm__button"
-          @click="toggleModalConfirm(false)"
-        >
-          확인
-        </button>
-      </div>
-    </ModalContainer>
-  </transition>
+  <ModalContainer v-show="isModalConfirmOpen">
+    <div class="modal-confirm">
+      <h1 class="modal-confirm__title">
+        {{ title }}
+      </h1>
+      <p class="modal-confirm__subtitle">
+        {{ subtitle }}
+      </p>
+      <button
+        class="modal-confirm__button"
+        @click="toggleModalConfirm(false)"
+      >
+        확인
+      </button>
+    </div>
+  </ModalContainer>
 </template>
 
 <script>
@@ -88,14 +86,5 @@ export default {
       color: #1c1919;
       border: none;
     }
-  }
-  .fade-enter-active,
-  .fade-leave-active {
-    transition: all 0.3s ease;
-  }
-
-  .fade-enter,
-  .fade-leave-to {
-    opacity: 0;
   }
 </style>

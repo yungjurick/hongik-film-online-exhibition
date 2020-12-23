@@ -45,7 +45,7 @@
             type="password"
             placeholder="비밀번호"
           >
-          <div @click="onSubmitPost()">
+          <div :class="{ 'completed': isFormComplete }" @click="onSubmitPost()">
             남기기
           </div>
         </div>
@@ -83,26 +83,33 @@
         </span>
       </div>
       <div class="guest__right__list">
-        <div
-          v-for="(post, index) in postList"
-          :key="index"
-          class="guest__right__list__item"
-        >
-          <p class="guest__right__list__item__header">
-            {{ post.artistName }}에게
-          </p>
-          <p class="guest__right__list__item__content">
-            {{ post.postContent }}
-          </p>
-          <div class="guest__right__list__item__bottom">
-            <span class="guest__right__list__item__bottom__author">
-              - {{ post.authorName }}
-            </span>
-            <img src="../assets/icon/delete-icon.svg" alt="delete-icon">
+        <transition-group name="list" tag="div">
+          <div
+            v-for="post in postList"
+            :key="post.postId"
+            class="guest__right__list__item"
+          >
+            <p class="guest__right__list__item__header">
+              {{ post.artistName }}에게
+            </p>
+            <p class="guest__right__list__item__content">
+              {{ post.postContent }}
+            </p>
+            <div class="guest__right__list__item__bottom">
+              <span class="guest__right__list__item__bottom__author">
+                - {{ post.authorName }}
+              </span>
+              <img src="../assets/icon/delete-icon.svg" alt="delete-icon" @click="openDeleteModal(post.postId)">
+            </div>
           </div>
-        </div>
+        </transition-group>
       </div>
     </div>
+    <ModalConfirm
+      title="공란을 모두 작성해주세요."
+      subtitle="방명록을 남기기 위해 필요한 정보 입니다"
+    />
+    <GuestDeleteModal />
   </div>
 </template>
 
@@ -143,22 +150,31 @@ export default {
     },
     postList () {
       return this.$store.getters.getPostList(this.selectedPostArtistId)
+    },
+    isFormComplete () {
+      return this.authorName && this.postPassword && this.postContent
     }
   },
   created () {
     this.$store.dispatch('fetchGuestPostData')
   },
   methods: {
-    onSubmitPost () {
-      const { authorName, postPassword, postContent, selectedNewPostArtistId } = this
-      this.$store.dispatch('putNewGuestPost', {
-        authorName,
-        postContent,
-        postPassword,
-        artistId: selectedNewPostArtistId,
-        artistName: this.selectedArtistName(selectedNewPostArtistId, false),
-        createdTime: Date.now()
-      })
+    async onSubmitPost () {
+      if (this.isFormComplete) {
+        const { authorName, postPassword, postContent, selectedNewPostArtistId } = this
+        await this.$store.dispatch('putNewGuestPost', {
+          authorName,
+          postContent,
+          postPassword,
+          artistId: selectedNewPostArtistId,
+          artistName: this.selectedArtistName(selectedNewPostArtistId, false),
+          createdTime: Date.now()
+        })
+        this.resetForm()
+      } else {
+        console.log('Form Not Completed')
+        this.$store.commit('setModalConfirmOpen', true)
+      }
     },
     toggleAuthorSelectOptions () {
       this.isAuthorSelectOptionsOpened = !this.isAuthorSelectOptionsOpened
@@ -187,6 +203,15 @@ export default {
       } else {
         return selected.name
       }
+    },
+    resetForm () {
+      this.authorName = ''
+      this.postPassword = ''
+      this.postContent = ''
+    },
+    openDeleteModal (postId) {
+      this.$store.commit('setSelectedPostId', postId)
+      this.$store.commit('setGuestDeleteModalOpen', true)
     }
   }
 }
@@ -194,21 +219,6 @@ export default {
 
 <style lang="scss">
   .guest {
-    textarea, input {
-      border: none;
-      font-family: 'Noto Sans KR', sans-serif;
-      font-size: 16px;
-      font-weight: normal;
-      font-stretch: normal;
-      font-style: normal;
-      line-height: 1.5;
-      letter-spacing: -0.5px;
-      color: #ffffff;
-    }
-    textarea {
-      height: 208px;
-      resize: none;
-    }
     textarea:focus, input:focus {
       outline: none;
     }
@@ -218,6 +228,21 @@ export default {
     grid-template-columns: 480px auto;
     column-gap: 80px;
     &__left {
+      textarea, input {
+        border: none;
+        font-family: 'Noto Sans KR', sans-serif;
+        font-size: 16px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.5;
+        letter-spacing: -0.5px;
+        color: #ffffff;
+      }
+      textarea {
+        height: 208px;
+        resize: none;
+      }
       &__title {
         font-family: 'Noto Serif KR', sans-serif;
         font-size: 40px;
@@ -288,8 +313,6 @@ export default {
             }
           }
         }
-        &__content {
-        }
         &__bottom {
           display: flex;
           margin-top: 20px;
@@ -312,6 +335,10 @@ export default {
             line-height: 1;
             letter-spacing: -0.5px;
             color: #1c1919;
+            transition: 0.5s;
+          }
+          .completed {
+            background-color: #ffda88;
           }
         }
       }
@@ -421,6 +448,7 @@ export default {
         margin-top: 40px;
         width: 100%;
         &__item {
+          transition: all 1s;
           border-radius: 6px;
           background-color: #1a1a1a;
           padding: 24px;
@@ -455,5 +483,14 @@ export default {
     .selected-artist--received {
       background-color: #ffda88;
     }
+  }
+  .list-enter {
+    transform: translateY(30px);
+  }
+  .list-enter, .list-leave-to {
+    opacity: 0;
+  }
+  .list-leave-active {
+    position: absolute;
   }
 </style>
