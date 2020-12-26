@@ -4,6 +4,7 @@ export const state = () => ({
   artistList: [],
   artistWorkList: [],
   worksList: [],
+  workDetailList: [],
   guestPostList: [],
   selectedPostId: '',
   deleteModalErrorMsg: '',
@@ -57,6 +58,18 @@ export const getters = {
       return guestPostList
         .filter(post => (post.artistId === id))
     }
+  },
+  getSelectedCategoryWorks: ({ worksList, workDetailList }) => (workIdList, category) => {
+    return workIdList.map((workId) => {
+      const work = worksList.find(work => work.workdId === workId)
+      const detail = workDetailList.find(workDetail => workDetail.workId === workId)
+      const coverImgUrl = UTILS.getCdnUrl(`${category}/${workId}`, 'title.jpg')
+      return {
+        ...work,
+        ...detail,
+        coverImgUrl
+      }
+    })
   }
 }
 
@@ -71,6 +84,9 @@ export const mutations = {
   },
   setWorksList (state, payload) {
     state.worksList = payload
+  },
+  setWorkDetailList (state, payload) {
+    state.worksDetailList = payload
   },
   setGuestPostList (state, payload) {
     console.log(payload)

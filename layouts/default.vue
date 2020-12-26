@@ -47,6 +47,11 @@ export default {
         storageName: 'artist-work-list',
         collectionName: 'artistWork',
         mutationName: 'setArtistWorkList'
+      },
+      {
+        storageName: 'work-detail-list',
+        collectionName: 'workDetail',
+        mutationName: 'setWorkDetailList'
       }
     ]
 
