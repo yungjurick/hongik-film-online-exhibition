@@ -60,10 +60,19 @@ export const getters = {
     }
   },
   getSelectedCategoryWorks: ({ worksList, workDetailList }) => (workIdList, category) => {
+    console.log(workIdList, category)
     return workIdList.map((workId) => {
-      const work = worksList.find(work => work.workdId === workId)
-      const detail = workDetailList.find(workDetail => workDetail.workId === workId)
-      const coverImgUrl = UTILS.getCdnUrl(`${category}/${workId}`, 'title.jpg')
+      console.log('WORKS LIST: ', worksList)
+      console.log('WORK DETAIL LIST: ', workDetailList)
+      const work = worksList.find(work => +work.workId === workId)
+      const detail = workDetailList.find(workDetail => +workDetail.workId === workId)
+      console.log(work, detail)
+      const coverImgUrl = UTILS.getCdnUrl(`works/${category}/${workId}`, 'title.jpg')
+      console.log({
+        ...work,
+        ...detail,
+        coverImgUrl
+      })
       return {
         ...work,
         ...detail,
@@ -86,7 +95,7 @@ export const mutations = {
     state.worksList = payload
   },
   setWorkDetailList (state, payload) {
-    state.worksDetailList = payload
+    state.workDetailList = payload
   },
   setGuestPostList (state, payload) {
     console.log(payload)

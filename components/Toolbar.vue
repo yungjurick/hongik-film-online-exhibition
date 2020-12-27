@@ -40,11 +40,19 @@ export default {
 
 <style lang="scss">
   .toolbar {
+    z-index: 100;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 1200px;
     font-family: 'Noto Sans KR', sans-serif;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 25px 0;
+    background-color: rgba(0, 0, 0, 0.8);
     &__logo {
       display: flex;
       align-items: center;
