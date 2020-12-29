@@ -12,7 +12,12 @@
         _
       </h1>
       <div class="categories__container__introduction">
-        video
+        <div class="embed-container">
+          <iframe
+            src="https://player.vimeo.com/video/495384491"
+            frameborder="0"
+          />
+        </div>
       </div>
     </div>
     <div
@@ -47,7 +52,10 @@
               </v-row>
             </template>
           </v-img>
-          <div class="categories__container__list__item__detail">
+          <div
+            class="categories__container__list__item__detail"
+            @click="onClickWork(item.workId)"
+          >
             <div>
               <span>{{ item.title }}</span>
               <span>-</span>
@@ -171,6 +179,9 @@ export default {
       this.showMoveBack = false
       this.selectedCategory = ''
       this.$refs.topContainer.scrollIntoView({ behavior: 'smooth' })
+    },
+    onClickWork (workId) {
+      this.$router.push(`/2020/${this.selectedCategory}-${workId}`)
     }
   }
 }
@@ -199,6 +210,17 @@ export default {
         letter-spacing: -0.5px;
         text-align: center;
         color: #ffda88;
+        margin-bottom: 50px;
+      }
+      &__introduction {
+        padding: 0 120px;
+        .embed-container {
+          position: relative;
+          padding-bottom: 43.25%;
+          height: 0;
+          overflow: hidden;
+          max-width: 100%;
+        }
       }
       &:first-child {
         padding-top: 156px;
@@ -211,6 +233,7 @@ export default {
         width: 100%;
         padding-bottom: 127px;
         overflow: scroll;
+        overscroll-behavior: contain;
         margin: 0 !important;
         &__item {
           position: relative;

@@ -79,7 +79,7 @@
           </span>
         </div>
         <span class="guest__right__header__count">
-          1093개
+          {{ postList.length }}개
         </span>
       </div>
       <div class="guest__right__list">
@@ -223,7 +223,7 @@ export default {
       outline: none;
     }
     width: 100%;
-    margin-top: 70px;
+    padding-top: 166px;
     display: grid;
     grid-template-columns: 480px auto;
     column-gap: 80px;

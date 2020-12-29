@@ -8,7 +8,9 @@
   >
     <Toolbar />
     <div class="default-layout__container">
-      <Nuxt />
+      <transition name="fade">
+        <Nuxt />
+      </transition>
       <Footer v-if="!is2020Page" />
     </div>
   </div>
@@ -120,5 +122,14 @@ body {
 
 .nav__link {
   margin-left: 20px;
+}
+.embed-container iframe,
+.embed-container object,
+.embed-container embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 </style>

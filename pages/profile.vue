@@ -16,6 +16,7 @@
           alt="profile-image"
           max-width="216px"
           max-height="288px"
+          min-height="288px"
           class="profile__container__artist__image"
         />
         <div class="profile__container__artist__title">
@@ -85,7 +86,7 @@ export default {
 
 <style lang="scss">
 .profile {
-  margin-top: 80px;
+  padding-top: 176px;
   margin-bottom: 178px;
   &__title {
     font-family: 'Noto Serif KR', serif;
