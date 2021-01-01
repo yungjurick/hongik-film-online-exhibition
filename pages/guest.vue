@@ -252,11 +252,21 @@ export default {
         line-height: 1.4;
         letter-spacing: -0.5px;
         color: #ffffff;
+        @media only screen and (max-height: 860px) {
+          & {
+            position: inherit;
+          }
+        }
       }
       &__form {
         position: sticky;
         top: 318px;
         margin-top: 40px;
+        @media only screen and (max-height: 860px) {
+          & {
+            position: inherit;
+          }
+        }
         &__select {
           width: 100%;
           position: relative;
