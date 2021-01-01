@@ -244,6 +244,8 @@ export default {
         resize: none;
       }
       &__title {
+        position: sticky;
+        top: 166px;
         font-family: 'Noto Serif KR', sans-serif;
         font-size: 40px;
         font-weight: 500;
@@ -252,6 +254,8 @@ export default {
         color: #ffffff;
       }
       &__form {
+        position: sticky;
+        top: 318px;
         margin-top: 40px;
         &__select {
           width: 100%;

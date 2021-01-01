@@ -10,7 +10,8 @@ export const state = () => ({
   deleteModalErrorMsg: '',
   // Modal Display State
   isModalConfirmOpen: false,
-  isGuestDeleteModalOpen: false
+  isGuestDeleteModalOpen: false,
+  isOverlayOpen: false
 })
 
 export const getters = {
@@ -113,6 +114,9 @@ export const mutations = {
   },
   setDeleteModalErrorMsg (state, payload) {
     state.deleteModalErrorMsg = payload
+  },
+  setOverlayStatus (state, status) {
+    state.isOverlayOpen = status
   },
   addNewGuestPost (state, payload) {
     state.guestPostList.splice(0, 0, payload)

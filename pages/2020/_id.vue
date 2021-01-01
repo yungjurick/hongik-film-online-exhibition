@@ -39,8 +39,23 @@
       <div
         v-else-if="selectedTab === 1"
         class="work__bottom__section work__bottom__section--two"
+        :class="contributorsClass"
+        :style="templateColumnRow"
       >
-        {{}}
+        <div
+          v-for="(contributor, index) in workData.contributors"
+          :key="index"
+          class="work__bottom__section__contributors"
+        >
+          <div class="work__bottom__section__contributors__contributor">
+            <span class="work__bottom__section__contributors__contributor__role">
+              {{ contributor.roleTitle }}
+            </span>
+            <span class="work__bottom__section__contributors__contributor__name">
+              {{ contributor.name }}
+            </span>
+          </div>
+        </div>
       </div>
       <div
         v-else
@@ -94,6 +109,30 @@ export default {
       selectedImage: 0
     }
   },
+  computed: {
+    contributorsClass () {
+      return {
+        'contributors-class-one': this.workData.contributors.length === 1,
+        'contributors-class-two': this.workData.contributors.length === 2 || this.workData.contributors.length === 4,
+        'contributors-class-three': this.workData.contributors.length === 3 || this.workData.contributors.length > 4
+      }
+    },
+    templateColumnRow () {
+      if (this.workData.contributors.length === 2 || this.workData.contributors.length === 4) {
+        const rowNum = Math.ceil(this.workData.contributors.length / 2)
+        return {
+          'grid-template-rows': `repeat(${rowNum}, 1fr)`
+        }
+      } else if (this.workData.contributors.length === 3 || this.workData.contributors.length > 4) {
+        const rowNum = Math.ceil(this.workData.contributors.length / 3)
+        return {
+          'grid-template-rows': `repeat(${rowNum}, 1fr)`
+        }
+      } else {
+        return ''
+      }
+    }
+  },
   created () {
     const [category, id] = this.$route.params.id.split('-')
     const workData = this.$store.getters.getWorkData(id)
@@ -105,8 +144,25 @@ export default {
 
       this.workCategory = category
       this.wordId = id
+
+      let contributorList = []
+
+      workData.contributors.forEach((obj) => {
+        const list = obj.names.map((name) => {
+          return {
+            roleTitle: obj.roleTitle,
+            name
+          }
+        })
+        contributorList = [
+          ...contributorList,
+          ...list
+        ]
+      })
+
       this.workData = {
         ...workData,
+        contributors: contributorList,
         images: this.getWorkImages(category, id)
       }
     } else {
@@ -249,7 +305,51 @@ export default {
             }
           }
         }
+        &__contributors {
+          width: 100%;
+          &__contributor {
+            font-family: NotoSansKR;
+            font-size: 16px;
+            line-height: 1;
+            letter-spacing: normal;
+            color: #ffffff;
+            & > span {
+              display: inline-block;
+            }
+            &__role {
+              width: 120px;
+              font-weight: 500;
+              margin-right: 14px;
+            }
+            &__name {
+              width: 60px;
+              font-weight: 300;
+            }
+          }
+        }
       }
     }
+  }
+  .contributors-class-one {
+    padding: 40px 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .contributors-class-two {
+    padding: 40px 203px;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 155px;
+    row-gap: 20px;
+  }
+  .contributors-class-three {
+    padding: 40px 24px;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 155px;
+    row-gap: 20px;
   }
 </style>

@@ -108,6 +108,33 @@
         </div>
       </div>
     </transition>
+    <v-overlay
+      class="categories-overlay"
+      :value="overlay"
+      opacity="0.9"
+      color="#000000"
+    >
+      <div class="categories-overlay__container">
+        <img src="@/assets/icon/movie-icon.svg" alt="movie-icon">
+        <h1>지금은 상영 준비 중입니다</h1>
+        <p>
+          본 섹션은 현재 상영시간이 아닙니다.<br>
+          상영시간표를 확인해주세요.
+        </p>
+        <button
+          class="categories-overlay__btn categories-overlay__btn--fill"
+          @click="navigateToHome()"
+        >
+          상영시간표 확인하러 가기
+        </button>
+        <button
+          class="categories-overlay__btn"
+          @click="overlay = false"
+        >
+          돌아가기
+        </button>
+      </div>
+    </v-overlay>
   </div>
 </template>
 
@@ -119,7 +146,8 @@ export default {
     return {
       selectedCategory: '',
       categories: [],
-      showMoveBack: false
+      showMoveBack: false,
+      overlay: false
     }
   },
   computed: {
@@ -173,6 +201,10 @@ export default {
         this.$refs.selectedCategoryContainer.scrollIntoView({ behavior: 'smooth' })
       } else {
         console.log('Not Available!')
+        // TEST
+        this.selectedCategory = category
+        this.$refs.selectedCategoryContainer.scrollIntoView({ behavior: 'smooth' })
+        this.overlay = true
       }
     },
     onMoveBack () {
@@ -182,6 +214,9 @@ export default {
     },
     onClickWork (workId) {
       this.$router.push(`/2020/${this.selectedCategory}-${workId}`)
+    },
+    navigateToHome () {
+      this.$router.push('/')
     }
   }
 }
@@ -430,5 +465,55 @@ export default {
   .fade-enter,
   .fade-leave-to {
     opacity: 0;
+  }
+  .categories-overlay {
+    &__container {
+      text-align: center;
+      font-family: 'Noto Sans KR', sans-serif;
+      & > img {
+        height: 48px;
+        width: 54px;
+      }
+      & > h1 {
+        margin-top: 40px;
+        font-size: 32px;
+        font-weight: normal;
+        line-height: 1;
+        letter-spacing: -0.4px;
+        text-align: center;
+        color: #ffda88;
+      }
+      & > p {
+        margin-top: 28px;
+        margin-bottom: 45px;
+        font-size: 16px;
+        font-weight: 300;
+        line-height: 1.5;
+        letter-spacing: -0.5px;
+        text-align: center;
+        color: #ffffff;
+      }
+    }
+    &__btn {
+      font-family: 'Noto Sans KR', sans-serif;
+      width: 100%;
+      border-radius: 6px;
+      border: solid 1px #978f8f;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1;
+      letter-spacing: -0.5px;
+      text-align: center;
+      color: #978f8f;
+      padding: 17px 0 15px 0;
+      & + & {
+        margin-top: 12px;
+      }
+      &--fill {
+        color: #1c1919;
+        border: none;
+        background-color: #ffda88;
+      }
+    }
   }
 </style>

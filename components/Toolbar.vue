@@ -40,7 +40,7 @@ export default {
 
 <style lang="scss">
   .toolbar {
-    z-index: 100;
+    z-index: 3;
     position: fixed;
     width: 100%;
     top: 0;
