@@ -1,5 +1,10 @@
 <template>
-  <header class="toolbar">
+  <header
+    class="toolbar"
+    :class="{
+      'toolbar--index': isIndexPage
+    }"
+  >
     <div class="toolbar__logo" @click="navigateToHome()">
       <img src="@/assets/img/hgff_logo.png" alt="logo">
       <p>
@@ -26,6 +31,11 @@
 
 <script>
 export default {
+  computed: {
+    isIndexPage () {
+      return this.$route.name === 'index'
+    }
+  },
   methods: {
     navigateToHome () {
       if (this.$route.path !== '/') {
@@ -53,6 +63,9 @@ export default {
     align-items: center;
     padding: 25px 0;
     background-color: rgba(0, 0, 0, 0.8);
+    &--index {
+      background-color: transparent;
+    }
     &__logo {
       display: flex;
       align-items: center;
