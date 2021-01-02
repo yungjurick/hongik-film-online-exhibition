@@ -89,4 +89,37 @@ body {
   background: rgba(0, 0, 0);
   position: relative;
 }
+
+.arrow {
+  cursor: pointer;
+  opacity: 0;
+  width: 24px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+// Animation
+@keyframes arrow-movement-not-hover {
+  to {
+    opacity: 1;
+  }
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes arrow-movement {
+  0% {
+    opacity: 0;
+    top: 45%;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
 </style>

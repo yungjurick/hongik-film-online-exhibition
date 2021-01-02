@@ -1,11 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="14" viewBox="0 0 24 14">
     <g fill="none" fill-rule="evenodd">
-        <g>
+        <g fill="#FFDA88" fill-rule="nonzero">
             <g>
-                <g>
-                    <path d="M0 0L24 0 24 24 0 24z" transform="translate(-1022 -176) translate(928 176) translate(94)"/>
-                    <path fill="#FFF" fill-rule="nonzero" d="M16.59 8.59L12 13.17 7.41 8.59 6 10 12 16 18 10z" transform="translate(-1022 -176) translate(928 176) translate(94)"/>
-                </g>
+                <path d="M23.891 1.728L22.307 0.144 12.013 10.438 1.715 0.144 0.131 1.728 12.013 13.606z" transform="translate(-948 -718) translate(948 718)"/>
             </g>
         </g>
     </g>

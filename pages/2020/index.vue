@@ -415,8 +415,6 @@ export default {
       }
     }
     &__header {
-      $ani-speed: 2s;
-      $ani-delay: 1s;
       background: black;
       position: fixed;
       z-index: 500;
@@ -431,36 +429,6 @@ export default {
         width: 30px;
         position: relative;
         /* margin: 0 auto; */
-        .arrow {
-          cursor: pointer;
-          opacity: 0;
-          width: 24px;
-          position: absolute;
-          left: 50%;
-          top: 50%;
-          transform: translate(-50%, -50%);
-        }
-
-        .arrow-first {
-          animation: arrow-movement $ani-speed ease-in-out infinite;
-        }
-        .arrow-second {
-          animation: arrow-movement $ani-speed $ani-delay ease-in-out infinite;
-        }
-
-        // Animation
-        @keyframes arrow-movement {
-          0% {
-            opacity: 0;
-            top: 45%;
-          }
-          70% {
-            opacity: 1;
-          }
-          100% {
-            opacity: 0;
-          }
-        }
       }
     }
   }

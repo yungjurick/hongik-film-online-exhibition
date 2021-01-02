@@ -1,52 +1,54 @@
 <template>
   <div class="guest">
     <div class="guest__left">
-      <h1 class="guest__left__title">
-        마음을 담은<br>
-        메시지를 남겨주세요.
-      </h1>
-      <div class="guest__left__form">
-        <div
-          class="guest__left__form__select guest__form__element"
-        >
-          <div class="selected" @click="toggleAuthorSelectOptions()">
-            <span>
-              {{ selectedArtistName(selectedNewPostArtistId, true) }}
-            </span>
-            <img src="../assets/icon/arrow-down.svg" alt="arrow-down">
-          </div>
-          <div v-if="isAuthorSelectOptionsOpened" class="guest__left__form__select__options">
-            <ul>
-              <li
-                v-for="artist in filteredArtistListForNewPost"
-                :key="artist.id"
-                :class="{ 'selected-artist--new': selectedNewPostArtistId === artist.id}"
-                @click="setNewPostArtist(artist.id)"
-              >
-                {{ artist.name }}
-              </li>
-            </ul>
-          </div>
-        </div>
-        <textarea
-          v-model="postContent"
-          class="guest__left__form__content guest__form__element"
-          placeholder="축하, 격려, 덕담. 그 어떤 말이라도 좋아요."
-        />
-        <input
-          v-model="authorName"
-          class="guest__left__form__author guest__form__element"
-          type="text"
-          placeholder="남기는 이"
-        >
-        <div class="guest__left__form__bottom">
-          <input
-            v-model="postPassword"
-            type="password"
-            placeholder="비밀번호"
+      <div class="sticky">
+        <h1 class="guest__left__title">
+          마음을 담은<br>
+          메시지를 남겨주세요.
+        </h1>
+        <div class="guest__left__form">
+          <div
+            class="guest__left__form__select guest__form__element"
           >
-          <div :class="{ 'completed': isFormComplete }" @click="onSubmitPost()">
-            남기기
+            <div class="selected" @click="toggleAuthorSelectOptions()">
+              <span>
+                {{ selectedArtistName(selectedNewPostArtistId, true) }}
+              </span>
+              <img src="../assets/icon/arrow-down.svg" alt="arrow-down">
+            </div>
+            <div v-if="isAuthorSelectOptionsOpened" class="guest__left__form__select__options">
+              <ul>
+                <li
+                  v-for="artist in filteredArtistListForNewPost"
+                  :key="artist.id"
+                  :class="{ 'selected-artist--new': selectedNewPostArtistId === artist.id}"
+                  @click="setNewPostArtist(artist.id)"
+                >
+                  {{ artist.name }}
+                </li>
+              </ul>
+            </div>
+          </div>
+          <textarea
+            v-model="postContent"
+            class="guest__left__form__content guest__form__element"
+            placeholder="축하, 격려, 덕담. 그 어떤 말이라도 좋아요."
+          />
+          <input
+            v-model="authorName"
+            class="guest__left__form__author guest__form__element"
+            type="text"
+            placeholder="남기는 이"
+          >
+          <div class="guest__left__form__bottom">
+            <input
+              v-model="postPassword"
+              type="password"
+              placeholder="비밀번호"
+            >
+            <div :class="{ 'completed': isFormComplete }" @click="onSubmitPost()">
+              남기기
+            </div>
           </div>
         </div>
       </div>
@@ -228,6 +230,10 @@ export default {
     grid-template-columns: 480px auto;
     column-gap: 80px;
     &__left {
+      .sticky {
+        position: sticky;
+        top: 166px;
+      }
       textarea, input {
         border: none;
         font-family: 'Noto Sans KR', sans-serif;
@@ -244,8 +250,6 @@ export default {
         resize: none;
       }
       &__title {
-        position: sticky;
-        top: 166px;
         font-family: 'Noto Serif KR', sans-serif;
         font-size: 40px;
         font-weight: 500;
@@ -259,8 +263,6 @@ export default {
         }
       }
       &__form {
-        position: sticky;
-        top: 318px;
         margin-top: 40px;
         @media only screen and (max-height: 860px) {
           & {
