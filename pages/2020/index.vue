@@ -36,6 +36,8 @@
         >
           <v-img
             :src="item.coverImgUrl"
+            height="388px"
+            max-height="388px"
             alt="work-image"
             class="categories__container__list__item__cover"
           >
@@ -255,6 +257,11 @@ export default {
           height: 0;
           overflow: hidden;
           max-width: 100%;
+          @media only screen and (max-height: 860px) {
+            & {
+              padding-bottom: 38.25%;
+            }
+          }
         }
       }
       &:first-child {

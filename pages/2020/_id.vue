@@ -10,6 +10,11 @@
       <div class="embed-container">
         <iframe
           :src="workData.videoUrl"
+          allowfullscreen="allowfullscreen"
+          mozallowfullscreen="mozallowfullscreen"
+          msallowfullscreen="msallowfullscreen"
+          oallowfullscreen="oallowfullscreen"
+          webkitallowfullscreen="webkitallowfullscreen"
           frameborder="0"
         />
       </div>
@@ -18,15 +23,16 @@
         상영되는 작품을 무단 복제, 배포, 전시할 시 형사처벌 대상이 될 수 있습니다.
       </p>
     </div>
-    <div class="work__bottom__tabs">
-      <p @click="onClickTab(0)">
-        시놉시스
-      </p>
-      <p @click="onClickTab(1)">
-        제작진
-      </p>
-      <p @click="onClickTab(2)">
-        작품 스틸컷
+    <div
+      class="work__bottom__tabs"
+    >
+      <p
+        v-for="tab in tabs"
+        :key="tab.id"
+        :class="{ 'selected-tab': selectedTab === tab.id }"
+        @click="onClickTab(tab.id)"
+      >
+        {{ tab.label }}
       </p>
     </div>
     <div class="work__bottom__sections">
@@ -106,7 +112,21 @@ export default {
         images: []
       },
       selectedTab: 0,
-      selectedImage: 0
+      selectedImage: 0,
+      tabs: [
+        {
+          label: '시놉시스',
+          id: 0
+        },
+        {
+          label: '제작진',
+          id: 1
+        },
+        {
+          label: '작품 스틸컷',
+          id: 2
+        }
+      ]
     }
   },
   computed: {
@@ -258,6 +278,11 @@ export default {
             margin-bottom: -3px;
           }
         }
+        .selected-tab {
+          color: #ffda88;
+          border-bottom: 3px solid #ffda88;
+          margin-bottom: -3px;
+        }
       }
       &__sections {
         border-bottom: 1px solid #978f8f;
@@ -308,7 +333,7 @@ export default {
         &__contributors {
           width: 100%;
           &__contributor {
-            font-family: NotoSansKR;
+            font-family: 'Noto Sans KR', sans-serif;
             font-size: 16px;
             line-height: 1;
             letter-spacing: normal;
@@ -322,6 +347,7 @@ export default {
               margin-right: 14px;
             }
             &__name {
+              vertical-align: top;
               width: 60px;
               font-weight: 300;
             }
