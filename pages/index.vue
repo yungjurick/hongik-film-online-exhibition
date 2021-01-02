@@ -4,15 +4,19 @@
       <div class="section section__video">
         <div class="section__video__embed-container">
           <iframe
-            src="https://player.vimeo.com/video/491520430?background=1&autoplay=1&allow=autoplay&loop=1&byline=0&title=0&muted=0"
+            src="https://player.vimeo.com/video/491520430?background=1&autoplay=1&loop=1&byline=0&title=0&muted=0"
             frameborder="0"
+            allow="autoplay"
             webkitallowfullscreen
             mozallowfullscreen
             allowfullscreen
           />
+          <iframe id="audio" src="@/assets/1-minute-of-silence.mp3" allow="autoplay" style="display: none" />
         </div>
       </div>
-      <div class="section">Four</div>
+      <div class="section">
+        TEST
+      </div>
     </full-page>
   </no-ssr>
 </template>
