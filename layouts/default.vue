@@ -165,4 +165,44 @@ body {
     opacity: 0;
   }
 }
+
+.arrow-right {
+  cursor: pointer;
+  opacity: 0;
+  height: 14px;
+  position: absolute;
+  right: -35%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.arrow-right-first {
+  animation: arrow-movement-right $ani-speed ease-in-out infinite;
+}
+.arrow-right-second {
+  animation: arrow-movement-right $ani-speed $ani-delay ease-in-out infinite;
+}
+
+@keyframes arrow-movement-right-hover {
+  to {
+    opacity: 1;
+  }
+  from {
+    opacity: 0;
+  }
+}
+
+// Animation
+@keyframes arrow-movement-right {
+  0% {
+    opacity: 0;
+    right: -28%;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
 </style>

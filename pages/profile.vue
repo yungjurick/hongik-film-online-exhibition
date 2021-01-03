@@ -2,7 +2,7 @@
   <div class="profile">
     <h1 class="profile__title">
       PROFILE<br>
-      -
+      _
     </h1>
     <div class="profile__container">
       <div
@@ -116,7 +116,7 @@ export default {
         justify-content: space-between;
         align-items: center;
         & > span {
-          font-family: 'Noto Serif KR', serif;
+          font-family: 'Noto Sans KR', sans-serif;
           font-size: 16px;
           font-weight: 900;
           line-height: 1;

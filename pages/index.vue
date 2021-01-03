@@ -34,18 +34,18 @@
             <div class="section__container__right__top">
               <h1>榮華</h1>
               <p>
-                영화<sup>1</sup>(映畫)<br>
-                일정한 의미를 갖고 움직이는 대상을 촬영하여영사기로 영사막에 재현하는 종합 예술.
+                <span>영화<sup>1</sup>(映畫)</span>
+                <span>일정한 의미를 갖고 움직이는 대상을 촬영하여영사기로 영사막에 재현하는 종합 예술.</span>
               </p>
               <p>
-                영화<sup>2</sup>(榮華)<br>
-                몸이 귀하게 되어 이름이 세상에 빛남
+                <span>영화<sup>2</sup>(榮華)</span>
+                <span>몸이 귀하게 되어 이름이 세상에 빛남</span>
               </p>
             </div>
             <div class="section__container__right__bottom">
               <p>——</p>
               <p>
-                제18회 홍익대학교 영상애니메이션전공 (영상영화트랙) 졸업 상영회<br>
+                제18회 홍익대학교 영상애니메이션전공 졸업 상영회<br>
                 &lt;영화&gt; 속 이야기들은 우리가 매일 마주치는 일상으로부터 시작되었습니다.<br>
                 우리의 이야기들은 이번 졸업상영회를 통해<br>
                 세상 밖에 나와 많은 이들과 함께 하게 되었습니다.<br>
@@ -117,11 +117,11 @@
           <p>지도교수</p>
           <div class="section__bottom__professors">
             <div>
-              <span>이찬호</span>
+              <span>노광민</span>
               <span>교수님</span>
             </div>
             <div>
-              <span>노광민</span>
+              <span>이찬호</span>
               <span>교수님</span>
             </div>
             <div>
@@ -281,6 +281,12 @@ export default {
           font-weight: 300;
           line-height: 1.71;
           letter-spacing: -0.44px;
+          & > span {
+            display: block;
+          }
+          & span:nth-child(2) {
+            font-size: 12px;
+          }
         }
         p + p {
           margin-top: 20px;
@@ -317,18 +323,18 @@ export default {
         width: 24px;
         position: relative;
         .arrow-first {
-          opacity: 1;
-          animation: arrow-movement-not-hover 1s;
+          animation: arrow-movement $ani-speed ease-in-out infinite;
         }
         .arrow-second {
-          animation: arrow-movement-not-hover 1s;
+          animation: arrow-movement $ani-speed $ani-delay ease-in-out infinite;
         }
         &:hover {
           .arrow-first {
-            animation: arrow-movement $ani-speed ease-in-out infinite;
+            opacity: 1;
+            animation: arrow-movement-not-hover 1s;
           }
           .arrow-second {
-            animation: arrow-movement $ani-speed ease-in-out infinite;
+            animation: arrow-movement-not-hover 1s;
           }
         }
       }
@@ -389,6 +395,7 @@ export default {
     font-family: 'Noto Sans KR', sans-serif;
     color: #ffffff;
     padding-right: 11.3%;
+    padding-bottom: 120px;
     & > p {
       font-size: 16px;
       font-weight: bold;

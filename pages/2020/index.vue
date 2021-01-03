@@ -14,7 +14,12 @@
       <div class="categories__container__introduction">
         <div class="embed-container">
           <iframe
-            src="https://player.vimeo.com/video/495384491"
+            src="https://player.vimeo.com/video/491520430"
+            allowfullscreen="allowfullscreen"
+            mozallowfullscreen="mozallowfullscreen"
+            msallowfullscreen="msallowfullscreen"
+            oallowfullscreen="oallowfullscreen"
+            webkitallowfullscreen="webkitallowfullscreen"
             frameborder="0"
           />
         </div>
@@ -70,6 +75,13 @@
     <!-- 하단 고정 카테고리 섹션 -->
     <div class="categories__footer">
       <div class="categories__footer__container">
+        <div class="categories__footer__container__title">
+          <span>SECTION</span>
+          <div :class="{ 'on-hover-category': onCategoryHover }">
+            <img src="@/assets/icon/arrow-right.svg" class="arrow-right arrow-right-first">
+            <img src="@/assets/icon/arrow-right.svg" class="arrow-right arrow-right-second">
+          </div>
+        </div>
         <div
           v-for="category in categories"
           :key="category.key"
@@ -77,8 +89,8 @@
           :class="{
             'categories__footer__container__section--unavailable': !category.isAvailable
           }"
-          @mouseover="category.onHover = true"
-          @mouseleave="category.onHover = false"
+          @mouseover="category.onHover = true; onCategoryHover = true"
+          @mouseleave="category.onHover = false; onCategoryHover = false"
           @click="moveToSelectedWork(category.key, category.isAvailable)"
         >
           {{ category.key }}
@@ -149,7 +161,8 @@ export default {
       selectedCategory: '',
       categories: [],
       showMoveBack: false,
-      overlay: false
+      overlay: false,
+      onCategoryHover: false
     }
   },
   computed: {
@@ -345,11 +358,34 @@ export default {
       width: 100%;
       border-top: 1px solid #978f8f;
       &__container {
-        max-width: 592px;
+        min-width: 592px;
+        max-width: 960px;
+        padding: 0 184px;
         margin: 0 auto;
         display: flex;
         justify-content: space-between;
         align-items: center;
+        position: relative;
+        &__title {
+          position: absolute;
+          left: 0;
+          top: 50%;
+          transform: translateY(-50%);
+          & > span {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 16px;
+            font-weight: normal;
+            line-height: 1;
+            letter-spacing: normal;
+            color: #ffffff;
+          }
+        }
+        .on-hover-category {
+          & > img {
+            opacity: 1;
+            animation: arrow-movement-right-hover 1s;
+          }
+        }
         &__section {
           cursor: pointer;
           position: relative;
