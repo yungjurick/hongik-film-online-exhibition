@@ -174,7 +174,7 @@ body {
 .arrow-right {
   cursor: pointer;
   opacity: 0;
-  height: 14px;
+  height: 12px;
   position: absolute;
   right: -35%;
   top: 50%;
