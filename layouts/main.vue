@@ -2,6 +2,22 @@
   <div
     class="default-layout"
   >
+    <v-overlay
+      class="default-overlay"
+      :value="!hasVisited"
+      opacity="1"
+      color="#000000"
+    >
+      <img src="@/assets/icon/pc-icon.svg" alt="pc-icon">
+      <p>PC에 최적화된 웹페이지입니다</p>
+      <p>
+        모바일, 태블릿으로 접근 시 불편함이 있을 수 있습니다.<br>
+        원활한 작품 관람을 위해 PC 접속을 권장드립니다.
+      </p>
+      <button @click="$router.go()">
+        상영관 홈으로 이동하기
+      </button>
+    </v-overlay>
     <Toolbar />
     <Nuxt />
   </div>
@@ -9,38 +25,25 @@
 
 <script>
 import Toolbar from '@/components/Toolbar.vue'
-// import Footer from '@/components/Footer.vue'
 
 export default {
   components: {
     Toolbar
-    // Footer
+  },
+  data () {
+    return {
+      hasVisited: false
+    }
   },
   created () {
-    // const artistDataPayload = [
-    //   {
-    //     storageName: 'artist-list',
-    //     collectionName: 'artist',
-    //     mutationName: 'setArtistList'
-    //   },
-    //   {
-    //     storageName: 'works-list',
-    //     collectionName: 'works',
-    //     mutationName: 'setWorksList'
-    //   },
-    //   {
-    //     storageName: 'artist-work-list',
-    //     collectionName: 'artistWork',
-    //     mutationName: 'setArtistWorkList'
-    //   },
-    //   {
-    //     storageName: 'work-detail-list',
-    //     collectionName: 'workDetail',
-    //     mutationName: 'setWorkDetailList'
-    //   }
-    // ]
+    const hasVisited = +localStorage.getItem('hasVisited') === 1
 
-    // artistDataPayload.forEach(payload => this.$store.dispatch('fetchInitialArtistData', payload))
+    if (hasVisited) {
+      this.hasVisited = true
+    } else {
+      this.hasVisited = false
+      localStorage.setItem('hasVisited', 1)
+    }
   }
 }
 </script>
@@ -88,6 +91,42 @@ body {
   min-height: 100vh;
   background: rgba(0, 0, 0);
   position: relative;
+}
+
+.default-overlay {
+  text-align: center;
+  img {
+    margin-bottom: 32px;
+    width: 54px;
+    height: 48px;
+  }
+  p {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.57;
+    letter-spacing: -0.5px;
+    text-align: center;
+    color: #ffffff;
+  }
+  p:first-of-type {
+    font-size: 22px;
+    margin-bottom: 20px;
+    color: #ffda88;
+  }
+  button {
+    margin-top: 36px;
+    padding: 15px 55px 17px;
+    border-radius: 6px;
+    background-color: #ffda88;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.5px;
+    text-align: center;
+    color: #1c1919;
+  }
 }
 
 .arrow {

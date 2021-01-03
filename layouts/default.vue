@@ -25,6 +25,11 @@ export default {
     Toolbar,
     Footer
   },
+  data () {
+    return {
+      hasVisited: false
+    }
+  },
   computed: {
     useImageBackground () {
       return this.$route.name !== 'profile'
