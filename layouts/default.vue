@@ -177,7 +177,7 @@ body {
   height: 12px;
   position: absolute;
   right: -35%;
-  top: 50%;
+  top: 52%;
   transform: translateY(-50%);
 }
 
