@@ -95,7 +95,10 @@
       <div class="flashback-detail__right__video">
         <div
           class="embed-container"
-          :class="{ 'embed-container--large': +directorId === 2 || +directorId === 5 }"
+          :class="{
+            'embed-container--2': +directorId === 2,
+            'embed-container--5': +directorId === 5
+          }"
         >
           <iframe
             :src="selectedWork.link"
@@ -324,8 +327,11 @@ export default {
         height: 0;
         overflow: hidden;
         max-width: 100%;
-        &--large {
+        &--2 {
           padding-bottom: 76.25%;
+        }
+        &--5 {
+          padding-bottom: 67.25%
         }
       }
       &__info {
