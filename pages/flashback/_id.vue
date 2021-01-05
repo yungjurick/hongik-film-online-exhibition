@@ -116,9 +116,8 @@
         <p class="flashback-detail__right__synopsis__title">
           시놉시스
         </p>
-        <p class="flashback-detail__right__synopsis__text">
-          {{ selectedWork.synopsis }}
-        </p>
+        <!-- eslint-disable-next-line vue/singleline-html-element-content-newline -->
+        <p class="flashback-detail__right__synopsis__text">{{ selectedWork.synopsis }}</p>
       </div>
     </div>
   </div>
@@ -354,6 +353,7 @@ export default {
         font-weight: 300;
         line-height: 1.5;
         letter-spacing: -0.5px;
+        white-space: break-spaces;
       }
     }
   }
