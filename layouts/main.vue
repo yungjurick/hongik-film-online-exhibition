@@ -40,6 +40,7 @@ export default {
 
     if (hasVisited) {
       this.hasVisited = true
+      localStorage.setItem('hasVisited', 0)
     } else {
       this.hasVisited = false
       localStorage.setItem('hasVisited', 1)
