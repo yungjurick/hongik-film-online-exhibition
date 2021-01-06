@@ -8,7 +8,7 @@ const UTILS = {
     console.log(location.hostname)
     return location.hostname === 'localhost' || location.hostname === '127.0.0.1'
       ? `https://raw.githubusercontent.com/yungjurick/hongik-film-online-exhibition-cdn/master/${directory}/${endpoint}`
-      : `https://rawcdn.githack.com/yungjurick/hongik-film-online-exhibition-cdn/551306bcf81670bcee48be7ffe59843361fbdbc1/${directory}/${endpoint}`
+      : `https://rawcdn.githack.com/yungjurick/hongik-film-online-exhibition-cdn/4200eeab98195daf55d2add43e345d48278395e7/${directory}/${endpoint}`
   }
 }
 

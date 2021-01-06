@@ -182,6 +182,7 @@ export default {
 
       this.workData = {
         ...workData,
+        synopsis: workData.synopsis.replaceAll('_b', '\n'),
         contributors: contributorList,
         images: this.getWorkImages(category, id)
       }
@@ -295,6 +296,7 @@ export default {
           align-items: center;
           & > p {
             text-align: left;
+            white-space: break-spaces;
             font-family: 'Noto Sans KR', sans-serif;
             font-size: 16px;
             font-weight: 300;
