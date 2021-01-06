@@ -1,6 +1,6 @@
 <template>
   <no-ssr>
-    <full-page ref="fullpage" :options="options">
+    <full-page ref="fullpage" :options="options" class="fullpage">
       <div class="section section__video">
         <div class="section__video__embed-container">
           <iframe
@@ -222,6 +222,18 @@ export default {
 </script>
 
 <style lang="scss">
+.fullpage {
+  &::before {
+    content: '';
+    position: absolute;
+    top: 100vh;
+    left: 0;
+    width: 100vw;
+    height: 100%;
+    background: linear-gradient(0deg,rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../assets/img/background.jpg');
+    background-size: cover;
+  }
+}
 .section {
   &__video {
     &__embed-container {
@@ -373,13 +385,17 @@ export default {
         & > p.text--large {
           font-size: 17px;
           margin: 19px 0;
+          line-height: 1;
         }
         & > p.text--bottom {
           margin-top: 21px;
+          line-height: 1;
         }
         & > p.text--bold {
           margin-top: 10px;
           font-weight: normal;
+          letter-spacing: normal;
+          line-height: 1;
         }
       }
     }

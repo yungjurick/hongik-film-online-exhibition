@@ -118,7 +118,7 @@ export default {
         & > span {
           font-family: 'Noto Sans KR', sans-serif;
           font-size: 16px;
-          font-weight: 900;
+          font-weight: 500;
           line-height: 1;
           letter-spacing: -0.5px;
           color: #ffffff;
