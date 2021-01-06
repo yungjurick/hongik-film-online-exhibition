@@ -144,9 +144,9 @@ export default {
     }
   },
   created () {
-    // const now = this.$moment(new Date(), timeFormat)
     const timeFormat = 'YYYYMMDD HH:mm:ss'
-    const now = this.$moment(new Date('2021-01-08T20:00:00'), timeFormat)
+    const now = this.$moment(new Date(), timeFormat)
+    // const now = this.$moment(new Date('2021-01-08T20:00:00'), timeFormat)
     const nowDate = now.format('YYYYMMDD')
     const nowTime = now.format('HH:mm:ss')
 

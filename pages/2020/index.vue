@@ -181,9 +181,9 @@ export default {
   },
   created () {
     this.categories = Object.keys(data.categories).map((category) => {
-      // const now = this.$moment(new Date(), timeFormat)
       const timeFormat = 'YYYYMMDD HH:mm:ss'
-      const now = this.$moment(new Date('2021-01-08T13:00:00'), timeFormat)
+      const now = this.$moment(new Date(), timeFormat)
+      // const now = this.$moment(new Date('2021-01-08T13:00:00'), timeFormat)
       const nowDate = now.format('YYYYMMDD')
       const nowTime = now.format('HH:mm:ss')
       const categoryData = data.categories[category]
@@ -218,9 +218,9 @@ export default {
       } else {
         console.log('Not Available!')
         // TEST
-        this.selectedCategory = category
-        this.$refs.selectedCategoryContainer.scrollIntoView({ behavior: 'smooth' })
-        this.$store.commit('setOverlayStatus', true)
+        // this.selectedCategory = category
+        // this.$refs.selectedCategoryContainer.scrollIntoView({ behavior: 'smooth' })
+        // this.$store.commit('setOverlayStatus', true)
       }
     },
     onMoveBack () {
