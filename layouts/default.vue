@@ -6,23 +6,6 @@
       'modal-open': isModalOpen
     }"
   >
-    <!-- TEMP -->
-    <v-overlay
-      class="default-overlay"
-      :value="true"
-      opacity="1"
-      color="#000000"
-    >
-      <img src="@/assets/icon/movie-icon.svg" alt="movie-icon">
-      <p>상영 준비중입니다.</p>
-      <p>
-        2021.01.08 오전 9시부터 상영됩니다.
-      </p>
-      <button @click="openSNSLink()">
-        공식 SNS 바로가기
-      </button>
-    </v-overlay>
-    <!-- -------- -->
     <Toolbar />
     <div class="default-layout__container">
       <transition name="fade">

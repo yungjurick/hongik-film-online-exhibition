@@ -4,7 +4,7 @@
       <div class="section section__video">
         <div class="section__video__embed-container">
           <iframe
-            src="https://player.vimeo.com/video/495384491?background=1&autoplay=0&loop=1&byline=0&title=0&muted=0"
+            src="https://player.vimeo.com/video/495384491?background=1&autoplay=1&loop=1&byline=0&title=0&muted=0"
             frameborder="0"
             allow="autoplay"
             webkitallowfullscreen
