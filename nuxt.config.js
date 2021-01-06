@@ -74,6 +74,10 @@ export default {
   build: {
   },
 
+  router: {
+    middleware: 'navigationCheck'
+  },
+
   generate: {
     fallback: true
   }

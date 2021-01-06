@@ -124,7 +124,7 @@
     </transition>
     <v-overlay
       class="categories-overlay"
-      :value="overlay"
+      :value="overlayStatus"
       opacity="0.9"
       color="#000000"
     >
@@ -137,13 +137,13 @@
         </p>
         <button
           class="categories-overlay__btn categories-overlay__btn--fill"
-          @click="navigateToHome()"
+          @click="navigateToLink()"
         >
           상영시간표 확인하러 가기
         </button>
         <button
           class="categories-overlay__btn"
-          @click="overlay = false"
+          @click="$store.commit('setOverlayStatus', false)"
         >
           돌아가기
         </button>
@@ -161,11 +161,13 @@ export default {
       selectedCategory: '',
       categories: [],
       showMoveBack: false,
-      overlay: false,
       onCategoryHover: false
     }
   },
   computed: {
+    overlayStatus () {
+      return this.$store.state.isOverlayOpen
+    },
     selectedCategoryWorks () {
       if (this.selectedCategory === '') {
         return []
@@ -219,7 +221,7 @@ export default {
         // TEST
         this.selectedCategory = category
         this.$refs.selectedCategoryContainer.scrollIntoView({ behavior: 'smooth' })
-        this.overlay = true
+        this.$store.commit('setOverlayStatus', true)
       }
     },
     onMoveBack () {
@@ -230,8 +232,8 @@ export default {
     onClickWork (workId) {
       this.$router.push(`/2020/${this.selectedCategory}-${workId}`)
     },
-    navigateToHome () {
-      this.$router.push('/')
+    navigateToLink () {
+      window.open('https://www.instagram.com/p/CJr_A45n0cX/?igshid=1bvn0yyumgwm3')
     }
   }
 }
@@ -453,7 +455,7 @@ export default {
     &__header {
       background: black;
       position: fixed;
-      z-index: 500;
+      z-index: 5;
       top: 0;
       width: 1200px;
       height: 96px;
