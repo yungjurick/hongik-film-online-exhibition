@@ -2,7 +2,7 @@
   <div
     class="default-layout"
   >
-    <v-overlay
+    <!-- <v-overlay
       class="default-overlay"
       :value="!hasVisited"
       opacity="1"
@@ -16,6 +16,23 @@
       </p>
       <button @click="$router.go()">
         상영관 홈으로 이동하기
+      </button>
+    </v-overlay> -->
+    <!-- TEMP MEASURE THAT HAS TO BE DELETED -->
+    <!-- FOR PRODUCTION, HAVE TO ENABLE AUTOPLAY! -->
+    <v-overlay
+      class="default-overlay"
+      :value="true"
+      opacity="1"
+      color="#000000"
+    >
+      <img src="@/assets/icon/movie-icon.svg" alt="movie-icon">
+      <p>상영 준비중입니다.</p>
+      <p>
+        2021.01.08 오전 9시부터 상영됩니다.
+      </p>
+      <button @click="openSNSLink()">
+        공식 SNS 바로가기
       </button>
     </v-overlay>
     <Toolbar />
@@ -44,6 +61,11 @@ export default {
     } else {
       this.hasVisited = false
       localStorage.setItem('hasVisited', 1)
+    }
+  },
+  methods: {
+    openSNSLink () {
+      window.open('https://www.instagram.com/hgff_2020/')
     }
   }
 }

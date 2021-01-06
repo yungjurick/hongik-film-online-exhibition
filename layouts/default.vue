@@ -6,6 +6,23 @@
       'modal-open': isModalOpen
     }"
   >
+    <!-- TEMP -->
+    <v-overlay
+      class="default-overlay"
+      :value="true"
+      opacity="1"
+      color="#000000"
+    >
+      <img src="@/assets/icon/movie-icon.svg" alt="movie-icon">
+      <p>상영 준비중입니다.</p>
+      <p>
+        2021.01.08 오전 9시부터 상영됩니다.
+      </p>
+      <button @click="openSNSLink()">
+        공식 SNS 바로가기
+      </button>
+    </v-overlay>
+    <!-- -------- -->
     <Toolbar />
     <div class="default-layout__container">
       <transition name="fade">
@@ -66,6 +83,11 @@ export default {
     ]
 
     artistDataPayload.forEach(payload => this.$store.dispatch('fetchInitialArtistData', payload))
+  },
+  methods: {
+    openSNSLink () {
+      window.open('https://www.instagram.com/hgff_2020/')
+    }
   }
 }
 </script>
@@ -208,6 +230,42 @@ body {
   }
   100% {
     opacity: 0;
+  }
+}
+
+.default-overlay {
+  text-align: center;
+  img {
+    margin-bottom: 32px;
+    width: 54px;
+    height: 48px;
+  }
+  p {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.57;
+    letter-spacing: -0.5px;
+    text-align: center;
+    color: #ffffff;
+  }
+  p:first-of-type {
+    font-size: 22px;
+    margin-bottom: 20px;
+    color: #ffda88;
+  }
+  button {
+    margin-top: 36px;
+    padding: 15px 55px 17px;
+    border-radius: 6px;
+    background-color: #ffda88;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.5px;
+    text-align: center;
+    color: #1c1919;
   }
 }
 </style>
