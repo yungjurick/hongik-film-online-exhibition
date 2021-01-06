@@ -144,6 +144,20 @@ export default {
     }
   },
   created () {
+    // const now = this.$moment(new Date(), timeFormat)
+    const timeFormat = 'YYYYMMDD HH:mm:ss'
+    const now = this.$moment(new Date('2021-01-08T20:00:00'), timeFormat)
+    const nowDate = now.format('YYYYMMDD')
+    const nowTime = now.format('HH:mm:ss')
+
+    const [after, before] = data.flashbackOpenTime[nowDate]
+    const isAvailable = nowTime >= after && nowTime <= before
+
+    if (!isAvailable) {
+      this.$store.commit('setOverlayStatus', true)
+      this.$router.push('/2020')
+    }
+
     this.directorId = this.$route.params.id
 
     if (this.directorId > 0 && this.directorId < 7) {
@@ -163,8 +177,6 @@ export default {
 
       this.selectedWork = this.rawWorks.find(work => work.selected)
 
-      console.log(this.rawWorks)
-
       for (let i = 0; i < this.rawWorks.length; i++) {
         const year = this.rawWorks[i].year
         if (year in this.sortedWorks) {
@@ -177,8 +189,6 @@ export default {
       }
 
       this.sortedWorksKeys = Object.keys(this.sortedWorks)
-
-      console.log(this.sortedWorks, this.sortedWorksKeys)
     } else {
       this.$router.push('/flashback')
     }

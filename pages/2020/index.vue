@@ -200,7 +200,6 @@ export default {
     })
   },
   mounted () {
-    console.log(this.$refs)
     // eslint-disable-next-line nuxt/no-globals-in-created
     this.$refs.categoriesContainer.addEventListener('wheel', (e) => {
       if (this.selectedCategory !== '') {

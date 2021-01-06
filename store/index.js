@@ -98,7 +98,6 @@ export const mutations = {
     state.workDetailList = payload
   },
   setGuestPostList (state, payload) {
-    console.log(payload)
     state.guestPostList = payload.sort((a, b) => {
       return Number(b.createdTime) - Number(a.createdTime)
     })
@@ -240,7 +239,6 @@ export const actions = {
             reject(err)
           })
       })
-      console.log(postPassword, inputPassword)
       if (inputPassword === postPassword) {
         context.dispatch('deleteGuestPost', postId)
       } else {
