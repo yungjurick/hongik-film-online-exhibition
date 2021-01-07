@@ -217,10 +217,7 @@ export default {
         this.$refs.selectedCategoryContainer.scrollIntoView({ behavior: 'smooth' })
       } else {
         console.log('Not Available!')
-        // TEST
-        // this.selectedCategory = category
-        // this.$refs.selectedCategoryContainer.scrollIntoView({ behavior: 'smooth' })
-        // this.$store.commit('setOverlayStatus', true)
+        this.$store.commit('setOverlayStatus', true)
       }
     },
     onMoveBack () {
