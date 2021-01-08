@@ -94,9 +94,8 @@
             <p class="guest__right__list__item__header">
               {{ post.artistName }}에게
             </p>
-            <p class="guest__right__list__item__content">
-              {{ post.postContent }}
-            </p>
+            <!-- eslint-disable-next-line vue/singleline-html-element-content-newline -->
+            <p class="guest__right__list__item__content">{{ post.postContent }}</p>
             <div class="guest__right__list__item__bottom">
               <span class="guest__right__list__item__bottom__author">
                 - {{ post.authorName }}
@@ -479,7 +478,9 @@ export default {
             color: #ffda88;
           }
           &__content {
+            line-height: 2;
             margin-top: 12px;
+            white-space: break-spaces;
           }
           &__bottom {
             margin-top: 12px;
